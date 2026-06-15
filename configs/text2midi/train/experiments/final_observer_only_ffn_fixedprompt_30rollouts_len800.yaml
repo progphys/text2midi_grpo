@@ -1,0 +1,70 @@
+experiment: "final_observer_only_ffn_fixedprompt_30rollouts_len800"
+description: "Critic-only GRPO with final_observer, FFN-only LoRA, one fixed prompt, 30 rollout candidates, and max length 800"
+
+lora:
+  dropout: 0.0
+  target_modules: ["linear1", "linear2"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 1
+  preset: debug_fixed_prompt_two_track
+
+grpo:
+  beta: 0.15
+  epsilon: 0.15
+  num_rollouts: 30
+  rollout_max_len: 800
+  generation_chunk_size: 30
+  update_mini_batch: 30
+  rollout_temperature: 1.0
+  kl_ceiling: 0.8
+
+training:
+  batch_size: 1
+  max_steps: 1000
+  save_every: 10
+  lr: 5.0e-6
+  save_rollout_midis: true
+  lr_scheduler:
+    enabled: true
+    type: cosine
+    warmup_steps: 13
+    min_lr: 1.5e-6
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 0.0
+  key_profile_weight: 0.0
+  meter_template_weight: 0.0
+  duration_balance_weight: 0.0
+  note_density_weight: 0.0
+  moderate_note_density_weight: 0.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  track_count_weight: 0.0
+  track_count_exact_weight: 0.0
+  no_drums_weight: 0.0
+  drum_note_ratio_weight: 0.0
+  observer_weight: 1.0
+  score_metric_critics: false
+  invalid_enabled: false
+  observer_critic:
+    enabled: true
+    project_midi: true
+    device: auto
+    reward_signal: rank_score
+    script_path: src/core/critics/final_observer/infer.py
+    checkpoint_path: supplementary/critic_assets/final_observer/best.pt
+    projected_output_dir: outputs/final_observer_projected

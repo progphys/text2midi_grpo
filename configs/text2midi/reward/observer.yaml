@@ -1,0 +1,23 @@
+reward:
+  observer_critic:
+    enabled: false
+    python_executable: null
+    script_path: src/core/critics/observer/infer.py
+    checkpoint_path: supplementary/critic_assets/observer/best.pt
+    chord_weights_yaml: src/core/critics/observer/assets/learned_weights.yaml
+    device: auto
+    batch_size: 32
+    continue_on_error: true
+    pretty: true
+    project_midi: true
+    projected_output_dir: outputs/observer_projected
+    score_center: -20.0
+    score_scale: 5.0
+    reward_signal: rank_score
+    min_score: null
+    top_k: null
+
+# Notes:
+# - Input MIDI must contain tracks named melody and chords.
+# - To use this inside RL later, prompts must provide structured metadata:
+#   key, mode, bpm, meter_numerator, meter_denominator.

@@ -1,0 +1,19 @@
+adaptation:
+  mode: lora
+  trainable_modules: ["linear1", "linear2"]
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  bias: "none"
+  target_modules: []
+  layers_to_transform: null
+
+qlora:
+  enabled: false
+  quantize_reference: true
+  quant_type: nf4
+  compute_dtype: bfloat16
+  compress_statistics: true
+  quantize_modules: ["to_qkv", "to_out", "linear1", "linear2"]

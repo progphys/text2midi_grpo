@@ -1,0 +1,38 @@
+[
+  {
+    "plot_label": "Правила\nслучайные\nпромпты",
+    "model": "rules_fixed",
+    "metric": "reward/total",
+    "dominance": 0.49864197530864196,
+    "delta_mean": -0.0028306004562560494,
+    "base_mean": 0.8322712248826075,
+    "model_mean": 0.8294406244263515
+  },
+  {
+    "plot_label": "Правила\nистория\nпромптов",
+    "model": "rules_curriculum",
+    "metric": "reward/total",
+    "dominance": 0.514753086419753,
+    "delta_mean": 0.012017270402476576,
+    "base_mean": 0.8322712248826075,
+    "model_mean": 0.8442884952850841
+  },
+  {
+    "plot_label": "Критик\nv2",
+    "model": "critic_only_final_final",
+    "metric": "critic/final_final_raw",
+    "dominance": 0.51,
+    "delta_mean": 0.014237578047646249,
+    "base_mean": -3.8255760197424227,
+    "model_mean": -3.8113384416947764
+  },
+  {
+    "plot_label": "Критик\nv1",
+    "model": "critic_after_curriculum",
+    "metric": "critic/final_final_raw",
+    "dominance": 0.48987654320987656,
+    "delta_mean": -0.11894500069320202,
+    "base_mean": -3.8255760197424227,
+    "model_mean": -3.9445210204356247
+  }
+]

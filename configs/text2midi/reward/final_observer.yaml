@@ -1,0 +1,23 @@
+reward:
+  observer_critic:
+    enabled: false
+    python_executable: null
+    script_path: src/core/critics/final_observer/infer.py
+    checkpoint_path: supplementary/critic_assets/final_observer/best.pt
+    chord_weights_yaml: null
+    device: auto
+    batch_size: 16
+    continue_on_error: true
+    pretty: true
+    project_midi: true
+    projected_output_dir: outputs/final_observer_projected
+    normalize_scores: false
+    score_center: 0.0
+    score_scale: 1.0
+    reward_signal: rank_score
+    min_score: null
+    top_k: null
+
+# Notes:
+# - Uses the bundled final_observer runtime extracted from final_observer_critic_runtime.tar.gz.
+# - Input MIDI must contain tracks named melody and chords after projection.

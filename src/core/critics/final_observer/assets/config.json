@@ -1,0 +1,135 @@
+{
+  "data": {
+    "name": "teacher_encoded_full",
+    "json_path": "data/HTCanon/encoded_full/teacher_encoded.json",
+    "metadata_dir": "metadata",
+    "split": {
+      "train": "train",
+      "val": "val"
+    },
+    "structured_only": false
+  },
+  "dataloader": {
+    "name": "section_cache_balanced",
+    "batch_size": 8,
+    "num_workers": 4,
+    "shuffle": true,
+    "pin_memory": false,
+    "drop_last": false,
+    "corruption_backend": "song_theory",
+    "corruption_modes": [
+      "adjacent_section_swap",
+      "non_adjacent_section_swap",
+      "section_duplicate",
+      "section_drop_keep_silence",
+      "section_drop_and_close_gap",
+      "section_entry_non_tonic_substitution",
+      "section_exit_non_dominant_substitution",
+      "strongbeat_nonchord_note",
+      "borrowed_melody_conflict",
+      "borrowed_kind_toggle_without_melody_change",
+      "melody_semitone_add_clash",
+      "melody_suspension_clash",
+      "melody_alteration_clash",
+      "melody_omit_core_tone_conflict",
+      "inversion_bass_continuity_conflict",
+      "note_onset_shift",
+      "chord_onset_shift"
+    ],
+    "theory_aware": {
+      "strongbeat_min_duration": 1.0,
+      "strongbeat_only": true,
+      "balance_mode_usage": false,
+      "deterministic_per_sample": true,
+      "deterministic_seed": 123,
+      "corruption_family_weights": {},
+      "corruption_mode_weights": {}
+    },
+    "pairs_per_song": 1,
+    "pair_mode_strategy": "section_all_local_balanced",
+    "section_pairs_per_mode": 1,
+    "local_pairs_per_song": 1,
+    "max_pairs_per_split_per_mode": null,
+    "max_pairs_per_mode_by_split": {}
+  },
+  "observer_pipeline": {
+    "output_root": "outputs/observer_cache/teacher_local_theory_dynfusion_h256_l4_v1_fast",
+    "build_pairs": false,
+    "build_targets": false,
+    "build_graph_cache": false,
+    "train": true,
+    "overwrite": false,
+    "skip_render_failures": true,
+    "skip_graph_build_failures": true,
+    "encoded_output_dir": "pairs/encoded",
+    "midi_output_dir": "pairs/midi",
+    "manifest_output_dir": "pairs/manifests",
+    "targets_output_dir": "targets",
+    "cache_output_dir": "cache",
+    "training_output_dir": "training_no_intermediate_seed42_h256_l4_normhead_v2"
+  },
+  "observer_model": {
+    "name": "observer_gnn_default",
+    "hidden_dim": 256,
+    "num_layers": 4,
+    "dropout": 0.1,
+    "pooling_mode": "mean_max",
+    "pooling_output_dim": null,
+    "score_head_hidden_dim": null,
+    "score_head_activation": "leaky_relu",
+    "score_head_layer_norm": true,
+    "use_bar_sequence_transformer": true,
+    "bar_transformer_num_layers": 2,
+    "bar_transformer_num_heads": 4,
+    "bar_transformer_ff_dim": null,
+    "bar_transformer_dropout": null,
+    "bar_transformer_pooling": "cls",
+    "bar_transformer_combine": "concat"
+  },
+  "observer_training": {
+    "name": "observer_training_default",
+    "epochs": 20,
+    "seed": 42,
+    "device": "cuda",
+    "teacher_checkpoint": "models/best_rank_acc.pt",
+    "teacher_config": "configs/config.yaml",
+    "cache_teacher_intermediates": true,
+    "chord_weights_yaml": null,
+    "chord_instrument_name": "chords",
+    "use_fallback_44": true,
+    "resume": false,
+    "log_every_batches": 100
+  },
+  "optimizer": {
+    "name": "adamw",
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ]
+  },
+  "scheduler": {
+    "name": "none"
+  },
+  "losses": {
+    "lambda_reg": 1.0,
+    "lambda_rank": 0.5,
+    "lambda_score_distill": 1.0,
+    "lambda_margin_distill": 0.5,
+    "lambda_graph_embedding_distill": 0.0,
+    "lambda_node_type_embedding_distill": 0.0,
+    "lambda_local_summary_distill": 0.0,
+    "embedding_distill_loss": "mse",
+    "min_teacher_gap_for_rank": 0.25,
+    "use_pair_rank": true,
+    "use_batch_rank": true,
+    "rank_intra_weight": 1.0,
+    "rank_inter_weight": 1.0
+  },
+  "project": {
+    "name": "Fine-tune-text2midi-llm-with-gnn-theory-critic",
+    "task": "observer_pair_distill"
+  },
+  "run_name": "observer_no_intermediate_seed42_h256_l4"
+}

@@ -1,0 +1,30 @@
+You are an expert symbolic music evaluator.
+
+Below is a symbolic music example in ABC notation derived from a MIDI file.
+
+{{ABC}}
+
+Listen to the MIDI mentally from this symbolic representation and evaluate the musical quality of the melody-harmony relationship.
+
+Focus specifically on whether the melody is well harmonized by the chords:
+- Do melody notes fit the active chords and key/mode?
+- Are strong-beat melody notes supported by the harmony?
+- Are dissonances, suspensions, chromatic notes, and borrowed chords musically justified?
+- Do chord changes align well with the melody rhythmically?
+- Is the bass or inversion movement natural and coherent?
+
+Ignore soundfont quality, mixing, instrument realism, and MIDI production artifacts.
+Judge only the symbolic musical composition.
+
+Give a score from 1 to 10, where:
+1 = very poor harmonization with many obvious clashes or incoherent chord choices
+5 = acceptable but with noticeable melody-chord or timing problems
+10 = highly coherent, musically convincing harmonization
+
+Return only in exactly this format:
+Score: <1-10>
+Reason: <one short paragraph>
+
+Example:
+Score: 6
+Reason: The piece is moderately coherent harmonically, but several strong-beat notes feel weakly supported and some chord changes sound awkward.

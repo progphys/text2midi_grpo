@@ -1,0 +1,36 @@
+experiment: "rules_plus_critic"
+description: "GRPO with symbolic rewards plus fixed-pairs observer critic rank reward"
+
+lora:
+  target_modules: ["to_qkv", "to_out", "linear1", "linear2"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 4
+
+reward:
+  key_weight: 0.03
+  rhythm_weight: 0.08
+  key_conditioned_weight: 0.10
+  key_exact_weight: 0.07
+  key_relative_weight: 0.07
+  meter_weight: 0.08
+  tempo_weight: 0.03
+  tempo_bin_weight: 0.03
+  tempo_bin_tolerant_weight: 0.03
+  duration_balance_weight: 0.04
+  note_density_weight: 0.04
+  pitch_range_weight: 0.03
+  pitch_diversity_weight: 0.03
+  polyphony_balance_weight: 0.03
+  duration_variety_weight: 0.03
+  stepwise_motion_weight: 0.03
+  repetition_balance_weight: 0.03
+  observer_weight: 0.25
+  invalid_enabled: false
+  observer_critic:
+    enabled: true
+    project_midi: true
+    device: auto
+    checkpoint_path: supplementary/critic_assets/observer_fixed_pairs/last.pt
+    projected_output_dir: outputs/observer_projected_fixed_pairs

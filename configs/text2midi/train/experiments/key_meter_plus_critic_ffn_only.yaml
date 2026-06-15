@@ -1,0 +1,46 @@
+experiment: "key_meter_plus_critic_ffn_only"
+description: "GRPO with key_conditioned + meter + fixed-pairs critic, using LoRA on FFN linear layers only"
+
+lora:
+  target_modules: ["linear1", "linear2"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 4
+
+grpo:
+  num_rollouts: 6
+  generation_chunk_size: 8
+  update_mini_batch: 6
+
+training:
+  batch_size: 4
+  lr: 5.0e-5
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.35
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.20
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 0.0
+  duration_balance_weight: 0.0
+  note_density_weight: 0.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  observer_weight: 0.45
+  invalid_enabled: false
+  observer_critic:
+    enabled: true
+    project_midi: true
+    device: auto
+    reward_signal: pairwise_win_rate
+    checkpoint_path: supplementary/critic_assets/observer_fixed_pairs/last.pt
+    projected_output_dir: outputs/observer_projected_fixed_pairs

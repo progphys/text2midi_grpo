@@ -1,0 +1,23 @@
+name: observer_pairs_song_theory
+batch_size: 8
+num_workers: 0
+shuffle: true
+pin_memory: false
+drop_last: false
+corruption_backend: song_theory
+corruption_modes:
+  - strongbeat_nonchord_note
+  - borrowed_melody_conflict
+  - note_onset_shift
+theory_aware:
+  strongbeat_min_duration: 1.0
+  strongbeat_only: true
+  balance_mode_usage: false
+  deterministic_per_sample: true
+  deterministic_seed: 123
+  corruption_family_weights: {}
+  corruption_mode_weights: {}
+pairs_per_song: 1
+pair_mode_strategy: first_applicable
+max_pairs_per_split_per_mode: null
+max_pairs_per_mode_by_split: {}

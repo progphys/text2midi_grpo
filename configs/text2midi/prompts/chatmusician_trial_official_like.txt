@@ -1,0 +1,9 @@
+Human: You are given a symbolic music example in ABC notation.
+
+{{ABC}}
+
+Answer the following question about this music.
+Question: {{QUESTION}}
+
+Follow the question exactly and keep the answer short.
+</s>Assistant:

@@ -1,0 +1,21 @@
+You are an expert symbolic music evaluator.
+
+Below is a symbolic music example in ABC notation derived from a MIDI file.
+
+{{ABC}}
+
+Task: Evaluate the musical quality of the melody-harmony relationship.
+
+Consider only:
+- whether melody notes fit the active harmony and key
+- whether strong-beat notes are harmonically supported
+- whether dissonances and chromatic notes seem musically justified
+- whether harmony changes align with melodic rhythm
+- whether the bass or inversion movement seems coherent
+
+Ignore soundfont quality, mixing, instrument realism, and MIDI production artifacts.
+Judge only the symbolic musical composition.
+
+Output exactly two lines and nothing else:
+Score: <1-10>
+Reason: <one short paragraph>

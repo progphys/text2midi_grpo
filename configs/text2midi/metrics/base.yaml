@@ -1,0 +1,14 @@
+metrics:
+  text2midi:
+    enabled: true
+    tb: true
+    tbt: true
+    ck: true
+    ckd: true
+    cr_proxy_zlib: true
+    clap: false
+    cosiatec_cr: false
+  critics:
+    enabled: true
+    observer_default: true
+    observer_fixed_pairs: true

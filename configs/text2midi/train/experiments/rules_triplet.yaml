@@ -1,0 +1,45 @@
+experiment: "rules_triplet"
+description: "GRPO with three rule-based rewards only: key-conditioned, meter, tempo-bin-tolerant"
+
+lora:
+  target_modules: ["to_qkv", "to_out", "linear1", "linear2"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 4
+
+grpo:
+  num_rollouts: 4
+  generation_chunk_size: 8
+  update_mini_batch: 4
+
+training:
+  batch_size: 4
+  lr: 5.0e-5
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.45
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.30
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 0.25
+  duration_balance_weight: 0.0
+  note_density_weight: 0.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  observer_weight: 0.0
+  invalid_enabled: false
+  observer_critic:
+    enabled: false
+    project_midi: false
+    device: auto
+    checkpoint_path: supplementary/critic_assets/observer_fixed_pairs/last.pt
+    projected_output_dir: outputs/observer_projected_fixed_pairs

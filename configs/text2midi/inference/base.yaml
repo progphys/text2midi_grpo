@@ -1,0 +1,7 @@
+inference:
+  caption: "A happy jazz piece in C major"
+  max_len: 1200
+  temperature: 1.0
+  generation_chunk_size: 8
+  to_wav: false
+  soundfont_path: /usr/share/soundfonts/FluidR3_GM.sf2

@@ -1,0 +1,65 @@
+experiment: "track_select_rules3_attn_lora_5rollouts_a100"
+description: "A100 track-selection GRPO: generate 5 candidates, select up to 4 non-drum tracks, apply tempo/key/meter rules"
+
+lora:
+  target_modules: ["to_qkv", "to_out"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 8
+  preset: moderate_4track_no_drums
+
+grpo:
+  num_rollouts: 5
+  rollout_max_len: 1200
+  generation_chunk_size: 20
+  update_mini_batch: 20
+  rollout_temperature: 1.0
+  kl_ceiling: 1.5
+
+training:
+  batch_size: 8
+  max_steps: 20
+  save_every: 10
+  lr: 5.0e-6
+  save_rollout_midis: false
+  lr_scheduler:
+    enabled: false
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 1.0
+  key_profile_weight: 1.0
+  meter_template_weight: 1.0
+  duration_balance_weight: 0.0
+  note_density_weight: 0.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  track_count_weight: 0.0
+  no_drums_weight: 0.0
+  max_tracks: 4
+  track_selection:
+    enabled: true
+    max_tracks: 4
+    drop_drums: true
+    min_selected_tracks: 2
+    max_attempts_per_prompt: 20
+    proposal_batch_size: 5
+    rejection_sampling:
+      enabled: true
+  observer_weight: 0.0
+  score_metric_critics: false
+  invalid_enabled: false
+  observer_critic:
+    enabled: false

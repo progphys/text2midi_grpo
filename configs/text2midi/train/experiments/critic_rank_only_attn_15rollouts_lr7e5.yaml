@@ -1,0 +1,56 @@
+experiment: "critic_rank_only_attn_15rollouts_lr7e5"
+description: "Critic-only GRPO with attention-only LoRA, 15 rollout candidates per prompt, and lr=7e-5"
+
+lora:
+  target_modules: ["to_qkv", "to_out"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 4
+
+grpo:
+  num_rollouts: 15
+  generation_chunk_size: 15
+  update_mini_batch: 15
+  rollout_max_len: 1200
+  rollout_temperature: 1.0
+  kl_ceiling: 2.0
+
+training:
+  batch_size: 4
+  lr: 7.0e-5
+  max_steps: 1000
+  save_every: 10
+  lr_scheduler:
+    enabled: true
+    type: cosine
+    warmup_steps: 30
+    min_lr: 2.0e-5
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 0.0
+  duration_balance_weight: 0.0
+  note_density_weight: 0.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  observer_weight: 1.0
+  invalid_enabled: false
+  observer_critic:
+    enabled: true
+    project_midi: true
+    device: auto
+    reward_signal: pairwise_win_rate
+    checkpoint_path: supplementary/critic_assets/observer_fixed_pairs/last.pt
+    projected_output_dir: outputs/observer_projected_fixed_pairs

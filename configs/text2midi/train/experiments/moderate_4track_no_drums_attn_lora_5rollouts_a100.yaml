@@ -1,0 +1,54 @@
+experiment: "moderate_4track_no_drums_attn_lora_5rollouts_a100"
+description: "A100-oriented attention LoRA: moderate tempo, <=4 nonempty tracks, no drums/percussion, 5 rollouts per prompt"
+
+lora:
+  target_modules: ["to_qkv", "to_out"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 8
+  preset: moderate_4track_no_drums
+
+grpo:
+  num_rollouts: 5
+  rollout_max_len: 1200
+  generation_chunk_size: 20
+  update_mini_batch: 20
+  rollout_temperature: 1.0
+  kl_ceiling: 1.5
+
+training:
+  batch_size: 8
+  max_steps: 20
+  save_every: 10
+  lr: 5.0e-5
+  lr_scheduler:
+    enabled: false
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.2
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 1.0
+  key_profile_weight: 0.4
+  meter_template_weight: 0.4
+  duration_balance_weight: 0.2
+  note_density_weight: 0.2
+  pitch_range_weight: 0.1
+  pitch_diversity_weight: 0.1
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.1
+  track_count_weight: 1.0
+  no_drums_weight: 1.0
+  max_tracks: 4
+  observer_weight: 0.0
+  invalid_enabled: true
+  observer_critic:
+    enabled: false

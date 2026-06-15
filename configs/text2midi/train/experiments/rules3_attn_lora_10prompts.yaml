@@ -1,0 +1,51 @@
+experiment: "rules3_attn_lora_10prompts"
+description: "Small attention-only LoRA probe using only key-profile, meter-template, and tempo-bin rewards"
+
+lora:
+  target_modules: ["to_qkv", "to_out"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 2
+  preset: rules3_caption_narrow
+
+grpo:
+  num_rollouts: 8
+  rollout_max_len: 1200
+  generation_chunk_size: 8
+  update_mini_batch: 8
+  rollout_temperature: 1.0
+  kl_ceiling: 1.5
+
+training:
+  batch_size: 2
+  max_steps: 10
+  save_every: 10
+  lr: 5.0e-5
+  lr_scheduler:
+    enabled: false
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 1.0
+  key_profile_weight: 1.0
+  meter_template_weight: 1.0
+  duration_balance_weight: 0.0
+  note_density_weight: 0.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  observer_weight: 0.0
+  invalid_enabled: false
+  observer_critic:
+    enabled: false

@@ -1,0 +1,7 @@
+paths:
+  model_repo: models/text2midi
+  weights_dir: models/text2midi/weight_models/text2midi
+  tokenizer_dir: models/text2midi/weight_models/flan-t5-base
+  output_dir: outputs/text2midi
+  checkpoint_dir: outputs/checkpoints
+  log_dir: outputs/logs

@@ -1,0 +1,16 @@
+bias: -0.1870371252298355
+positive:
+  bass_matches_body: 1.475908637046814
+  body_match_count: 1.517266869544983
+  extras_explained_count: 0.29110440611839294
+  mode_equals_main: 1.4382952451705933
+negative:
+  add_penalty: 1.4682939052581787
+  alteration_penalty: 1.5616356134414673
+  body_size_penalty: 1.481619119644165
+  borrowed_mode_penalty: 1.4382505416870117
+  missing_core_pcs_count: 1.498144268989563
+  mode_distance_penalty: 0.5199294090270996
+  omit_penalty: 1.498144268989563
+  suspension_penalty: 1.3477681875228882
+  unexplained_pcs_count: 1.6130090951919556

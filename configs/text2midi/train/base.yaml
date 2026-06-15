@@ -1,0 +1,36 @@
+experiment: "base"
+description: "Base GRPO setup"
+
+prompt:
+  num_prompts_per_step: null
+  preset: broad
+
+grpo:
+  num_rollouts: 4
+  epsilon: 0.2
+  beta: 0.1
+  kl_floor: -0.5
+  kl_ceiling: null
+  rollout_temperature: 1.0
+  rollout_max_len: 1200
+  generation_chunk_size: 8
+  update_mini_batch: 4
+
+training:
+  objective: grpo
+  lr: 5.0e-5
+  weight_decay: 0.01
+  max_steps: 2000
+  batch_size: 4
+  max_grad_norm: 0.5
+  save_every: 200
+  seed: 42
+  lr_scheduler:
+    enabled: false
+    type: cosine
+    warmup_steps: 30
+    min_lr: 2.0e-5
+
+logging:
+  project: "text2midi-grpo"
+  use_wandb: true

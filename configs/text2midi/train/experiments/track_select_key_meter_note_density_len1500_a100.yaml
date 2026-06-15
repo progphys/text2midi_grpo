@@ -1,0 +1,65 @@
+experiment: "track_select_key_meter_note_density_len1500_a100"
+description: "A100 full-MIDI GRPO: key+meter with note-density reward, no track selection, 1500-token rollouts"
+
+lora:
+  target_modules: ["to_qkv", "to_out"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 1
+  preset: moderate_3track_no_drums
+
+grpo:
+  num_rollouts: 5
+  rollout_max_len: 1500
+  generation_chunk_size: 5
+  update_mini_batch: 5
+  rollout_temperature: 1.0
+  kl_ceiling: 1.5
+
+training:
+  batch_size: 1
+  max_steps: 40
+  save_every: 5
+  lr: 5.0e-6
+  save_rollout_midis: true
+  lr_scheduler:
+    enabled: false
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 0.0
+  key_profile_weight: 1.0
+  meter_template_weight: 1.0
+  duration_balance_weight: 0.0
+  note_density_weight: 0.2
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  track_count_weight: 0.0
+  no_drums_weight: 0.0
+  max_tracks: 3
+  track_selection:
+    enabled: false
+    max_tracks: 3
+    drop_drums: true
+    min_selected_tracks: 2
+    max_attempts_per_prompt: 20
+    proposal_batch_size: 5
+    rejection_sampling:
+      enabled: false
+  observer_weight: 0.0
+  score_metric_critics: false
+  invalid_enabled: false
+  observer_critic:
+    enabled: false

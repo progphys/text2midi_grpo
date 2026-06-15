@@ -1,0 +1,10 @@
+logging:
+  project: "text2midi-grpo"
+  use_wandb: true
+
+evaluation:
+  seed: 999
+  num_prompts: 50
+  generations_per_prompt: 4
+  max_len: 2000
+  temperature: 1.0

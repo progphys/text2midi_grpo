@@ -1,0 +1,121 @@
+experiment: "ffn_curriculum_4stage_interleaved_len800_r18"
+description: "4-stage fixed-prompt curriculum in one 40-step run: base -> key -> meter -> style, with replay of earlier prompts"
+
+lora:
+  dropout: 0.0
+  target_modules: ["linear1", "linear2"]
+  layers_to_transform: null
+
+prompt:
+  num_prompts_per_step: 1
+  preset: debug_curriculum_stage1
+  schedule_presets:
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage2
+    - debug_curriculum_stage2
+    - debug_curriculum_stage2
+    - debug_curriculum_stage2
+    - debug_curriculum_stage2
+    - debug_curriculum_stage1
+    - debug_curriculum_stage1
+    - debug_curriculum_stage2
+    - debug_curriculum_stage2
+    - debug_curriculum_stage2
+    - debug_curriculum_stage3
+    - debug_curriculum_stage3
+    - debug_curriculum_stage3
+    - debug_curriculum_stage3
+    - debug_curriculum_stage3
+    - debug_curriculum_stage1
+    - debug_curriculum_stage2
+    - debug_curriculum_stage3
+    - debug_curriculum_stage3
+    - debug_curriculum_stage3
+    - debug_curriculum_stage4
+    - debug_curriculum_stage4
+    - debug_curriculum_stage4
+    - debug_curriculum_stage4
+    - debug_curriculum_stage4
+    - debug_curriculum_stage1
+    - debug_curriculum_stage2
+    - debug_curriculum_stage3
+    - debug_curriculum_stage4
+    - debug_curriculum_stage4
+
+grpo:
+  beta: 0.15
+  epsilon: 0.15
+  num_rollouts: 18
+  rollout_max_len: 800
+  generation_chunk_size: 18
+  update_mini_batch: 18
+  rollout_temperature: 1.0
+  kl_ceiling: 0.8
+
+training:
+  batch_size: 1
+  max_steps: 40
+  save_every: 5
+  lr: 5.0e-6
+  save_rollout_midis: true
+  lr_scheduler:
+    enabled: false
+
+reward:
+  key_weight: 0.0
+  rhythm_weight: 0.0
+  key_conditioned_weight: 0.0
+  key_exact_weight: 0.0
+  key_relative_weight: 0.0
+  meter_weight: 0.0
+  tempo_weight: 0.0
+  tempo_bin_weight: 0.0
+  tempo_bin_tolerant_weight: 0.0
+  key_profile_weight: 1.0
+  meter_template_weight: 0.0
+  duration_balance_weight: 0.1
+  note_density_weight: 0.0
+  moderate_note_density_weight: 0.5
+  moderate_note_density_low: 0.4
+  moderate_note_density_target: 3.0
+  moderate_note_density_high: 12.0
+  pitch_range_weight: 0.0
+  pitch_diversity_weight: 0.0
+  polyphony_balance_weight: 0.0
+  duration_variety_weight: 0.0
+  stepwise_motion_weight: 0.0
+  repetition_balance_weight: 0.0
+  track_count_weight: 0.0
+  track_count_exact_weight: 0.0
+  no_drums_weight: 0.0
+  drum_note_ratio_weight: 0.4
+  target_drum_note_ratio: 0.15
+  max_drum_note_ratio: 0.60
+  max_tracks: 2
+  target_tracks: 2
+  observer_weight: 0.0
+  score_metric_critics: false
+  invalid_enabled: true
+  min_notes: 12
+  min_duration_sec: 4.0
+  max_repeat_ratio: 0.8
+  track_selection:
+    enabled: false
+    max_tracks: 2
+    drop_drums: true
+    min_selected_tracks: 2
+    max_attempts_per_prompt: 20
+    proposal_batch_size: 5
+    rejection_sampling:
+      enabled: false
+  observer_critic:
+    enabled: false
