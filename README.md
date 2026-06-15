@@ -58,23 +58,3 @@ Compare base and fine-tuned generations:
 Public Weights & Biases dashboard:
 
 `https://wandb.ai/udalov0078-/text2midi-grpo`
-
-## Notes For GitHub
-
-- Local training outputs are not part of the repository.
-- Local `wandb` runs, virtual environments, checkpoints, and heavy model weights should stay untracked.
-- Research documents and presentation assets were moved to `supplementary/` to keep the codebase readable.
-
-## Minimal Structure
-
-```text
-.
-├── configs/
-├── models/
-├── scripts/
-├── src/
-├── supplementary/
-├── tools/
-├── requirements.txt
-└── run.sh
-```
